@@ -27,7 +27,7 @@
             e.preventDefault();
         
             myname = document.getElementById('name').value;
-            fetch('http://localhost:7071/api/sampleHttpTrigger1', {
+            fetch('/api/location', {
                 method: 'POST',
                 headers: {
                 'Accept': 'application/json, text/plain, */*',
