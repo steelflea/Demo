@@ -71,7 +71,7 @@ jobs:
         cd ./contosoneuro/content-web/charts/web
 
         helm package . contosoneuro/content-web:v${{ env.tag }}
-        helm package . ${{ env.containerRegistry }}/helm/content-web:v${{ env.tag }}
+        helm package . ${{ env.containerRegistry }}/helm/contosoneuro/content-web:v${{ env.tag }}
 
       env:
         HELM_EXPERIMENTAL_OCI: 1
