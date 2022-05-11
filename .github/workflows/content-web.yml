@@ -68,7 +68,7 @@ jobs:
 
     - name: Helm Chart Save
       run: |
-        cd ./contosoneuro/content-web/charts/web
+        cd ./content-web/charts/web
 
         helm chart save . content-web:v${{ env.tag }}
         helm chart save . ${{ env.containerRegistry }}/helm/content-web:v${{ env.tag }}
