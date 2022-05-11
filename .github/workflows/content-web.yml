@@ -73,7 +73,7 @@ jobs:
         helm chart save . content-web:v${{ env.tag }}
         helm chart save . ${{ env.containerRegistry }}/helm/content-web:v${{ env.tag }}
 
-      # list out saved charts
+      # list out saved chart
         helm chart list
       env:
         HELM_EXPERIMENTAL_OCI: 1
