@@ -70,10 +70,10 @@ jobs:
       run: |
         cd ./contosoneuro/content-web/charts/web
 
-        helm chart save . contosoneuro/content-web:v${{ env.tag }}
+        helm chart save . content-web:v${{ env.tag }}
         helm chart save . ${{ env.containerRegistry }}/helm/content-web:v${{ env.tag }}
 
-        # list out saved charts
+      # list out saved charts
         helm chart list
       env:
         HELM_EXPERIMENTAL_OCI: 1
