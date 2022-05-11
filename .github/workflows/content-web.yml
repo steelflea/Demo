@@ -70,7 +70,7 @@ jobs:
       run: |
         cd ./contosoneuro/content-web/charts/web
 
-        helm package ./contosoneuro content-web:v${{ env.tag }}
+        helm package ./contosoneuro/content-web/charts/* content-web:v${{ env.tag }}
         helm package . ${{ env.containerRegistry }}/helm/content-web:v${{ env.tag }}
 
       env:
