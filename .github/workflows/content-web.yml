@@ -59,6 +59,8 @@ jobs:
 
     - name: Helm Install
       uses: azure/setup-helm@v1
+      with:
+        version: v3.6.0
 
     - name: Helm Repo Add
       run: |
@@ -70,15 +72,18 @@ jobs:
       run: |
         cd ./contosoneuro/content-web/charts/web
 
-        helm package . ${{ env.containerRegistry }}/helm/contosoneuro/content-web:v${{ env.tag }}
+        helm chart save . content-web:v${{ env.tag }}
+        helm chart save . ${{ env.containerRegistry }}/helm/content-web:v${{ env.tag }}
 
+        # list out saved charts
+        helm chart list
       env:
         HELM_EXPERIMENTAL_OCI: 1
 
     - name: Helm Chart Push
       run: |
         helm registry login ${{ env.containerRegistry }} --username ${{ secrets.ACR_USERNAME }} --password ${{ secrets.ACR_PASSWORD }}
-        helm push ${{ env.containerRegistry }}/helm/content-web:v${{ env.tag }}
+        helm chart push ${{ env.containerRegistry }}/helm/content-web:v${{ env.tag }}
       env:
         HELM_EXPERIMENTAL_OCI: 1
   aks-deployment:
@@ -105,7 +110,8 @@ jobs:
     - name: Helm Upgrade
       run: |
         helm registry login ${{ env.containerRegistry }} --username ${{ secrets.ACR_USERNAME }} --password ${{ secrets.ACR_PASSWORD }}
-        helm pull ${{ env.containerRegistry }}/helm/content-web:v${{ env.tag }}
+        helm chart pull ${{ env.containerRegistry }}/helm/content-web:v${{ env.tag }}
+        helm chart export ${{ env.containerRegistry }}/helm/content-web:v${{ env.tag }} --destination ./upgrade
         helm upgrade web ./upgrade/web
       env:
         KUBECONFIG: './kubeconfig'
